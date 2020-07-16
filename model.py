@@ -14,4 +14,4 @@ def walk_path(folder):
         return(onlydirs,onlyfiles)
 
     except exception as e:
-        return("")
+        return(["Path invalid"]["Please refresh"])

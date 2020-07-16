@@ -31,7 +31,27 @@
           </div>
           <div class="col-sm-12 content">
             <div class="col-sm-9 file-tree">
-
+              <div class="col-sm-12">
+                <div class="col-sm-4">
+                <h4>{{current}}<h4>
+                </div>
+                <div class="col-sm-8 tree-control">
+                  <button class="boxed">
+                      <i class="fa fa-level-up"></i>
+                  </button>
+                  <button class="boxed">
+                      <i class="fa fa-refresh"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-sm-12 files">
+                {%for i in range(1,dirs[0]+1)%}
+                      <i class="fa fa-folder"></i> <a>{{dirs[i]}}</a><br>
+                  {%endfor%}
+                  {%for i in range(1,files[0]+1)%}
+                      <a>{{files[i]}}</a><br>
+                {%endfor%}
+              </div>
             </div>
             <div class="col-sm-2 control">
 

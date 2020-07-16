@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forex Gym</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
+    <!-- Font Awesome -->
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <!-- Style -->
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url_for('static', filename='css/Chart.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url_for('static', filename='css/Chart.min.css')}}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{{url_for('static', filename='js/Chart.bundle.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/Chart.bundle.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/Chart.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/Chart.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/site.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="background-dark">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href={{url_for('home')}}>Forex Gym</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href={{url_for('home')}}>Home</a></li>
+            <li><a href={{url_for('home')}}#About>About Me</a></li>
+            <li><a href="https://samarmusthafa2014.wixsite.com/home">Blog</a></li>
+            <li><a href={{url_for('home')}}#Services>Services</a></li>
+            <li><a href={{url_for('home')}}#Contact>Contact</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div>
+    </nav>
+
+  <!-- START SECTION -->
+    <div class="container">
+      <div class="row">
+        <div class="graph">
+          <div class="col-md-12 leads">
+            <div class="col-md-6 current">
+              <label id="currentval"></label>
+            </div>
+            <div class="col-md-6 wallet">
+              <div class="col-md-12 walab">
+                <div class="col-md-4">
+                  <i class="fa fa-dollar"></i>
+                </div>
+                <div class="col-md-4 lef balance">
+                  <label id="balanc" class="balance"></label>
+                </div>
+                <div class="col-md-4 lef">
+                  <button id="refresh" class="round2"><i class="fa fa-refresh"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-8">
+              <canvas id="line-chart" width="150" height="100"></canvas>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-12 box">
+                <div class="col-md-3">
+                  <i class="fa-sq-nb fa fa-money"></i>
+                </div>
+                  <div class="col-md-9">
+                    <div class="">
+                      <div class="resp-textbox">
+                        <input id="amount" type="text" placeholder="Enter Amount" value="100"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 box">
+                  <div class="col-md-6">
+                    <button id="subam" class="round1">-</button>
+                  </div>
+                  <div class="col-md-6">
+                    <button id="addam" class="round1">+</button>
+                  </div>
+                </div>
+                <div class="col-md-12 box box2">
+                  <div class="col-md-3">
+                    <i class="fa-sq-nb fa fa-clock-o"></i>
+                  </div>
+                    <div class="col-md-9">
+                      <div class="">
+                        <div class="resp-textbox">
+                          <input id="duration" type="text" placeholder="Enter duration" value="1" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 box">
+                    <div class="col-md-6">
+                      <button id="subdur" class="round1">-</button>
+                    </div>
+                    <div class="col-md-6">
+                      <button id="adddur" class="round1">+</button>
+                    </div>
+                  </div>
+                  <div class="col-md-12 status">
+                    <label class="stat1">Bid Amount: 100</label><br>
+                    <label class="stat2">Call: 76</label>
+                  </div>
+                  <div class="col-md-12 box">
+                    <button class="up" id="up">UP &nbsp;&nbsp;&nbsp;<i class="fa fa-sort-asc"></i></button>
+                  </div>
+                  <div class="col-md-12 box">
+                    <button class="down" id="down">DOWN &nbsp;&nbsp;&nbsp;<i class="fa fa-sort-desc"></i></button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        <div>
+      </div>
+    </div>
+
+<script type="text/javascript">
+
+var called = 0;
+var calls = "";
+var timer = 0;
+var amount = 0;
+
+$("#refresh").click(function(){
+  $.ajax({
+  			url: '/resetbalance',
+  			data: $('form').serialize(),
+  			type: 'POST',
+  			success: function(response){
+            console.log(response);
+  			},
+  			error: function(error){
+  				console.log(error);
+  			}
+  		});
+});
+
+$("#subam").click(function(){
+  var amount = $("#amount").val();
+  if(amount > 100){
+    $("#amount").val(amount-100);
+  }
+});
+
+$("#addam").click(function(){
+  var amount = parseInt($("#amount").val());
+  amount+=100;
+  if(parseInt($("#balanc").text()) >= amount){
+    $("#amount").val(amount);
+  }
+});
+
+$("#subdur").click(function(){
+  var duration = parseInt($("#duration").val());
+  if(duration > 1){
+    $("#duration").val(duration-1);
+  }
+});
+
+$("#adddur").click(function(){
+  var duration = parseInt($("#duration").val());
+    $("#duration").val(duration+1);
+});
+
+$("#up").click(function(){
+  if(calls!="up" && calls!="down"){
+    var amount = $("#amount").val();
+    var duration = $("#duration").val();
+    var balance = $("#balanc").text();
+    if(parseInt(amount)>0 && parseInt(duration)>0){
+      if(parseInt(amount)<=parseInt(balance)){
+        window.called = arr[20];
+        window.calls = "up";
+        window.timer = duration*5;
+        window.amount = amount;
+        $(".stat1").text("Bid Amount: "+amount);
+        $(".stat1").css('visibility','visible');
+        $(".stat2").text("Call: "+arr[20]+" UP");
+        $(".stat2").css('visibility','visible');
+        $.ajax({
+        			url: '/transact',
+        			data: {amount:amount, duration:duration, current:arr[20], ttype:"up"},
+        			type: 'POST',
+        			success: function(response){
+                if(response==1){
+                  console.log(response);
+                }
+        			},
+        			error: function(error){
+        				console.log(error);
+        			}
+        		});
+      }
+    }
+  }
+});
+
+$("#down").click(function(){
+  if(calls!="up" && calls!="down"){
+    var amount = $("#amount").val();
+    var duration = $("#duration").val();
+    var balance = $("#balanc").text();
+    if(parseInt(amount)>0 && parseInt(duration)>0){
+      if(parseInt(amount)<=parseInt(balance)){
+        window.called = arr[20];
+        window.calls = "down";
+        window.timer = duration*5;
+        window.amount = window;
+        $(".stat1").text("Bid Amount: "+amount);
+        $(".stat1").css('visibility','visible');
+        $(".stat2").text("Call: "+arr[20]+" DOWN");
+        $(".stat2").css('visibility','visible');
+        $.ajax({
+        			url: '/transact',
+        			data: {amount:amount, duration:duration, current:arr[20], ttype:"down"},
+        			type: 'POST',
+        			success: function(response){
+                if(response==1){
+                  console.log(response);
+                }
+        			},
+        			error: function(error){
+        				console.log(error);
+        			}
+        		});
+        }
+    }
+  }
+});
+
+var arr = [];
+{%for i in range(51)%}
+  arr.push(parseFloat('{{data[i]}}'));
+{%endfor%}
+
+setInterval(runf,2);
+
+function runf(){
+
+  $.ajax({
+  			url: '/fetchbalance',
+  			data: $('form').serialize(),
+  			type: 'POST',
+  			success: function(response){
+            $("#balanc").text(response);
+  			},
+  			error: function(error){
+  				console.log(error);
+  			}
+  		});
+
+
+  if(window.timer>0){
+    window.timer = window.timer - 1;
+  }
+  else{
+    window.calls = "";
+    window.called = 0;
+    $(".stat1").css('visibility','hidden');
+    $(".stat2").css('visibility','hidden');
+  }
+
+  if(window.calls == "down"){
+    if(arr[20]>window.called){
+      $(".stat2").css('color','#e73333');
+    }
+    else{
+      $(".stat2").css('color','#4CAF50');
+    }
+  }
+
+  if(window.calls == "up"){
+    if(arr[20]<window.called){
+      $(".stat2").css('color','#e73333');
+    }
+    else{
+      $(".stat2").css('color','#4CAF50');
+    }
+  }
+
+
+  $.ajax({
+  			url: '/refresh',
+  			data: $('form').serialize(),
+  			type: 'POST',
+  			success: function(response){
+            window.arr = []
+            for(var i in response)
+              window.arr.push(response[i]);
+  			},
+  			error: function(error){
+  				console.log(error);
+  			}
+  		});
+
+$('#currentval').text('Current value: '+window.arr[20]);
+
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels:['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+    datasets: [{
+        data: window.arr,
+        borderColor: "#3e95cd",
+        fill: true,
+        backgroundColor: "#4fa6de11",
+      }
+    ]
+  },
+  options:{
+    legend:{
+      display:false,
+    },
+    animation:{
+      duration: 0
+    },
+    scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: 'white'
+                },
+            }],
+          xAxes: [{
+                ticks: {
+                    fontColor: 'white'
+                },
+            }]
+        }
+  }
+});
+}
+</script>
+    <!--/.section -->
+
+    <!-- START SECTION -->
+    <!--/.section -->
+
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>

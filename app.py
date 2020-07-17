@@ -1,35 +1,27 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file, send_from_directory, abort
 import model
 import service
 
-app = Flask(__name__)
+file = []
 
-previous=""
-dir=[]
-file=[]
+app = Flask(__name__)
 
 @app.route("/")
 def home():
-    global dir,file,previous
-    previous=""
-    dirs,files,current = service.getfiles()
-    dir = dirs
+    global file
+
+    files = service.getfiles()
     file = files
-    return render_template('index.html', dirs=dirs, files=files, current=current)
+    return render_template('index.html', files=files)
 
 @app.route("/req/<obj>")
 def req(obj):
-    global dir, file, previous
-    if(obj in dir):
-        dirs,files = service.traverse(obj)
-        current = previous
-        previous = "root/"
-        dir = dirs
-        file = files
-        return render_template('index.html', dirs = dirs, files = files, current=current)
-    elif(obj in file):
+    if(obj in file):
         print("caught")
-        return render_template('index.html', dirs = dir, files = file, current=obj)
+        return send_file(obj, as_attachment=True)
+    else:
+        print("erred")
+        abort(404)
 
 
 if(__name__=="__main__"):

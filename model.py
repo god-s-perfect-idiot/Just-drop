@@ -7,10 +7,14 @@ def return_contents():
 
     return(onlydirs,onlyfiles)
 
+path = ""
+
 def walk_path(folder):
+    global path
     try:
-        onlyfiles = [f for f in listdir(folder) if isfile(join(folder,f))]
-        onlydirs = [f for f in listdir(folder) if not isfile(join(folder,f))]
+        onlyfiles = [f for f in listdir(path+folder) if isfile(join(path+folder,f))]
+        onlydirs = [f for f in listdir(path+folder) if not isfile(join(path+folder,f))]
+        path = path+folder+"/"
         return(onlydirs,onlyfiles)
 
     except exception as e:

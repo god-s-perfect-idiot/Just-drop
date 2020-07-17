@@ -23,6 +23,13 @@ def req(obj):
         print("erred")
         abort(404)
 
+@app.route("/upload", methods=['GET','POST'])
+def upload():
+    if request.method == 'POST':
+        file = request.files
+        print(s)
+
+    return render_template('index.html', files=file)
 
 if(__name__=="__main__"):
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

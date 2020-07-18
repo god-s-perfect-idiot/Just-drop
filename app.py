@@ -14,13 +14,14 @@ def home():
     file = files
     return render_template('index.html', files=files)
 
+
 @app.route("/req/<obj>")
 def req(obj):
+    global file
+
     if(obj in file):
-        print("caught")
-        return send_file(obj, as_attachment=True)
+        return send_file("root/"+obj, as_attachment=True)
     else:
-        print("erred")
         abort(404)
 
 @app.route("/upload", methods=['GET','POST'])

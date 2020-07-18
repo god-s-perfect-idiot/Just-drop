@@ -26,10 +26,11 @@ def req(obj):
 @app.route("/upload", methods=['GET','POST'])
 def upload():
     if request.method == 'POST':
-        file = request.files
-        print(s)
-
-    return render_template('index.html', files=file)
+        f = request.files['file']
+        f.save("root/"+f.filename)
+        print("worked")
+    files = service.getfiles()
+    return render_template('index.html', files=files)
 
 if(__name__=="__main__"):
     app.run(host="0.0.0.0", debug=True)
